@@ -10,14 +10,14 @@ namespace Spryker\Client\SecretsManager;
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
 use Spryker\Client\SecretsManager\Exception\MissingSecretsManagerClientPluginException;
-use Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerClientPluginInterface;
+use Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface;
 
 class SecretsManagerDependencyProvider extends AbstractDependencyProvider
 {
     /**
      * @var string
      */
-    public const PLUGIN_SECRETS_MANAGER_CLIENT = 'PLUGIN_SECRETS_MANAGER_CLIENT';
+    public const PLUGIN_SECRETS_MANAGER_PROVIDER = 'PLUGIN_SECRETS_MANAGER_PROVIDER';
 
     /**
      * @param \Spryker\Client\Kernel\Container $container
@@ -27,7 +27,7 @@ class SecretsManagerDependencyProvider extends AbstractDependencyProvider
     public function provideServiceLayerDependencies(Container $container): Container
     {
         $container = parent::provideServiceLayerDependencies($container);
-        $container = $this->addSecretsManagerClientPlugin($container);
+        $container = $this->addSecretsManagerProviderPlugin($container);
 
         return $container;
     }
@@ -37,10 +37,10 @@ class SecretsManagerDependencyProvider extends AbstractDependencyProvider
      *
      * @return \Spryker\Client\Kernel\Container
      */
-    protected function addSecretsManagerClientPlugin(Container $container): Container
+    protected function addSecretsManagerProviderPlugin(Container $container): Container
     {
-        $container->set(static::PLUGIN_SECRETS_MANAGER_CLIENT, function () {
-            return $this->getSecretsManagerClientPlugin();
+        $container->set(static::PLUGIN_SECRETS_MANAGER_PROVIDER, function () {
+            return $this->getSecretsManagerProviderPlugin();
         });
 
         return $container;
@@ -49,9 +49,9 @@ class SecretsManagerDependencyProvider extends AbstractDependencyProvider
     /**
      * @throws \Spryker\Client\SecretsManager\Exception\MissingSecretsManagerClientPluginException
      *
-     * @return \Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerClientPluginInterface
+     * @return \Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface
      */
-    protected function getSecretsManagerClientPlugin(): SecretsManagerClientPluginInterface
+    protected function getSecretsManagerProviderPlugin(): SecretsManagerProviderPluginInterface
     {
         throw new MissingSecretsManagerClientPluginException();
     }

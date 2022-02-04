@@ -11,7 +11,7 @@ use Codeception\Test\Unit;
 use Generated\Shared\Transfer\SecretTransfer;
 use Spryker\Client\SecretsManager\Exception\MissingSecretsManagerClientPluginException;
 use Spryker\Client\SecretsManager\SecretsManagerDependencyProvider;
-use Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerClientPluginInterface;
+use Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface;
 
 /**
  * Auto-generated group annotations
@@ -108,13 +108,13 @@ class SecretsManagerClientTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerClientPluginInterface
+     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface
      */
-    protected function getSecretsManagerClientPluginMock(): SecretsManagerClientPluginInterface
+    protected function getSecretsManagerClientPluginMock(): SecretsManagerProviderPluginInterface
     {
-        $secretsManagerClientPluginMock = $this->createMock(SecretsManagerClientPluginInterface::class);
+        $secretsManagerClientPluginMock = $this->createMock(SecretsManagerProviderPluginInterface::class);
         $this->tester->setDependency(
-            SecretsManagerDependencyProvider::PLUGIN_SECRETS_MANAGER_CLIENT,
+            SecretsManagerDependencyProvider::PLUGIN_SECRETS_MANAGER_PROVIDER,
             $secretsManagerClientPluginMock,
         );
 

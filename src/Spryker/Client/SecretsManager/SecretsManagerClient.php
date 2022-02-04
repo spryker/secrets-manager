@@ -26,7 +26,7 @@ class SecretsManagerClient extends AbstractClient implements SecretsManagerClien
      */
     public function createSecret(SecretTransfer $secretTransfer): bool
     {
-        return $this->getFactory()->getSecretsManagerClientPlugin()
+        return $this->getFactory()->getSecretsManagerProviderPlugin()
             ->createSecret($secretTransfer);
     }
 
@@ -41,7 +41,7 @@ class SecretsManagerClient extends AbstractClient implements SecretsManagerClien
      */
     public function getSecret(SecretTransfer $secretTransfer): SecretTransfer
     {
-        return $this->getFactory()->getSecretsManagerClientPlugin()
+        return $this->getFactory()->getSecretsManagerProviderPlugin()
             ->getSecret($secretTransfer);
     }
 }
