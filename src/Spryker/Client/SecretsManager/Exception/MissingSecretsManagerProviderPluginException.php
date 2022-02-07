@@ -9,6 +9,6 @@ namespace Spryker\Client\SecretsManager\Exception;
 
 use Exception;
 
-class MissingSecretsManagerClientPluginException extends Exception
+class MissingSecretsManagerProviderPluginException extends Exception
 {
 }

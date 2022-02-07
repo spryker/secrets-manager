@@ -9,7 +9,7 @@ namespace SprykerTest\Client\SecretsManager;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\SecretTransfer;
-use Spryker\Client\SecretsManager\Exception\MissingSecretsManagerClientPluginException;
+use Spryker\Client\SecretsManager\Exception\MissingSecretsManagerProviderPluginException;
 use Spryker\Client\SecretsManager\SecretsManagerDependencyProvider;
 use Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface;
 
@@ -36,11 +36,11 @@ class SecretsManagerClientTest extends Unit
     {
         // Arrange
         $secretTransfer = $this->tester->buildSecretTransfer();
-        $secretsManagerClientPluginMock = $this->getSecretsManagerClientPluginMock();
+        $secretsManagerProviderPluginMock = $this->getSecretsManagerProviderPluginMock();
         $createSecretResponse = true;
 
         // Assert
-        $secretsManagerClientPluginMock->expects($this->once())
+        $secretsManagerProviderPluginMock->expects($this->once())
             ->method('createSecret')
             ->with($secretTransfer)
             ->willReturn($createSecretResponse);
@@ -61,7 +61,7 @@ class SecretsManagerClientTest extends Unit
         $secretTransfer = $this->tester->buildSecretTransfer();
 
         // Assert
-        $this->expectException(MissingSecretsManagerClientPluginException::class);
+        $this->expectException(MissingSecretsManagerProviderPluginException::class);
 
         // Act
         $this->tester->getClient()->createSecret($secretTransfer);
@@ -74,13 +74,13 @@ class SecretsManagerClientTest extends Unit
     {
         // Arrange
         $secretTransfer = $this->tester->buildSecretTransfer();
-        $secretsManagerClientPluginMock = $this->getSecretsManagerClientPluginMock();
+        $secretsManagerProviderPluginMock = $this->getSecretsManagerProviderPluginMock();
         $getSecretResponse = $this->tester->buildSecretTransfer([
             SecretTransfer::VALUE => 'secret value',
         ]);
 
         // Assert
-        $secretsManagerClientPluginMock->expects($this->once())
+        $secretsManagerProviderPluginMock->expects($this->once())
             ->method('getSecret')
             ->with($secretTransfer)
             ->willReturn($getSecretResponse);
@@ -101,7 +101,7 @@ class SecretsManagerClientTest extends Unit
         $secretTransfer = $this->tester->buildSecretTransfer();
 
         // Assert
-        $this->expectException(MissingSecretsManagerClientPluginException::class);
+        $this->expectException(MissingSecretsManagerProviderPluginException::class);
 
         // Act
         $this->tester->getClient()->getSecret($secretTransfer);
@@ -110,14 +110,14 @@ class SecretsManagerClientTest extends Unit
     /**
      * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface
      */
-    protected function getSecretsManagerClientPluginMock(): SecretsManagerProviderPluginInterface
+    protected function getSecretsManagerProviderPluginMock(): SecretsManagerProviderPluginInterface
     {
-        $secretsManagerClientPluginMock = $this->createMock(SecretsManagerProviderPluginInterface::class);
+        $secretsManagerProviderPluginMock = $this->createMock(SecretsManagerProviderPluginInterface::class);
         $this->tester->setDependency(
             SecretsManagerDependencyProvider::PLUGIN_SECRETS_MANAGER_PROVIDER,
-            $secretsManagerClientPluginMock,
+            $secretsManagerProviderPluginMock,
         );
 
-        return $secretsManagerClientPluginMock;
+        return $secretsManagerProviderPluginMock;
     }
 }

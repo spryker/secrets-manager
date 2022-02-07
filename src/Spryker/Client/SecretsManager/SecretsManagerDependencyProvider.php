@@ -9,7 +9,7 @@ namespace Spryker\Client\SecretsManager;
 
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
-use Spryker\Client\SecretsManager\Exception\MissingSecretsManagerClientPluginException;
+use Spryker\Client\SecretsManager\Exception\MissingSecretsManagerProviderPluginException;
 use Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface;
 
 class SecretsManagerDependencyProvider extends AbstractDependencyProvider
@@ -47,12 +47,12 @@ class SecretsManagerDependencyProvider extends AbstractDependencyProvider
     }
 
     /**
-     * @throws \Spryker\Client\SecretsManager\Exception\MissingSecretsManagerClientPluginException
+     * @throws \Spryker\Client\SecretsManager\Exception\MissingSecretsManagerProviderPluginException
      *
      * @return \Spryker\Client\SecretsManagerExtension\Dependency\Plugin\SecretsManagerProviderPluginInterface
      */
     protected function getSecretsManagerProviderPlugin(): SecretsManagerProviderPluginInterface
     {
-        throw new MissingSecretsManagerClientPluginException();
+        throw new MissingSecretsManagerProviderPluginException();
     }
 }
